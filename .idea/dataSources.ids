@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="SQLite - PHD-data2.db" uuid="9f50c5aa-3b48-4a3b-b952-a720d4126eac">
+    <database-info product="SQLite" version="3.7.6.3" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
+    <schema name="" catalog=""/>
+    <table name="calibrations" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="measurements_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="calibration_measurement_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_calibrations_1" columns="calibration_measurement_id" ref-table="measurements" ref-schema="" ref-catalog="" ref-columns="calibration_id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_calibrations_2" columns="measurements_id" ref-table="measurements" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="data" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="data_point_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="data_type_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="valA" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valB" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valC" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="physical_property" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="unit" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_data_1" columns="data_type_id" ref-table="data_defs" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_data_2" columns="data_point_id" ref-table="data_points" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="data_defs" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defA" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defB" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defC" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <exported-key name="#FAKE_data_1" table="data" schema="" catalog="" columns="data_type_id"/>
+    </table>
+    <table name="data_points" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="measurement_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="time" sqlType="DATETIME" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_data_points_1" columns="measurement_id" ref-table="measurements" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="#FAKE_data_2" table="data" schema="" catalog="" columns="data_point_id"/>
+    </table>
+    <table name="experiment_defs" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="reference" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defA" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defB" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defC" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defD" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defE" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defF" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defG" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defH" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defI" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defJ" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defK" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defL" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defM" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="date_added" sqlType="DATE" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <exported-key name="#FAKE_experiments_1" table="experiments" schema="" catalog="" columns="experiment_type_id"/>
+    </table>
+    <table name="experiments" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="experiment_type_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="reference" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="valA" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valB" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valC" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valD" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valE" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valF" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valG" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valH" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valI" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valJ" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valK" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valL" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valM" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="date_added" sqlType="DATE" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_experiments_1" columns="experiment_type_id" ref-table="experiment_defs" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="#FAKE_measurements_1" table="measurements" schema="" catalog="" columns="experiment_id"/>
+    </table>
+    <table name="instruments" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="reference" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="last_calibration_date" sqlType="DATETIME" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="date_added" sqlType="DATE" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <exported-key name="#FAKE_measurements_4" table="measurements" schema="" catalog="" columns="instrument"/>
+    </table>
+    <table name="locations" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+      <exported-key name="#FAKE_samples_1" table="samples" schema="" catalog="" columns="location_id"/>
+    </table>
+    <table name="measurement_defs" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="reference" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defA" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defB" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defC" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defD" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defE" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defF" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defG" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defH" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defI" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defJ" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defK" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defL" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defM" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="date_added" sqlType="DATE" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="measurements" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="calibration_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="reference" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="instrument" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="treatment_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="sample_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="experiment_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="valA" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valB" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valC" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valD" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valE" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valF" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valG" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valH" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valI" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valJ" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valK" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valL" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valM" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="date_added" sqlType="DATE" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_measurements_1" columns="experiment_id" ref-table="experiments" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_measurements_2" columns="sample_id" ref-table="samples" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_measurements_3" columns="treatment_id" ref-table="treatments" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_measurements_4" columns="instrument" ref-table="instruments" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="#FAKE_calibrations_1" table="calibrations" schema="" catalog="" columns="calibration_measurement_id"/>
+      <exported-key name="#FAKE_calibrations_2" table="calibrations" schema="" catalog="" columns="measurements_id"/>
+      <exported-key name="#FAKE_data_points_1" table="data_points" schema="" catalog="" columns="measurement_id"/>
+    </table>
+    <table name="projects" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="date_added" sqlType="DATETIME" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <exported-key name="#FAKE_samples_2" table="samples" schema="" catalog="" columns="project_id"/>
+    </table>
+    <table name="sample_sets" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(30)" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <exported-key name="#FAKE_sample_sets__samples_2" table="sample_sets__samples" schema="" catalog="" columns="sampleset_id"/>
+    </table>
+    <table name="sample_sets__samples" schema="" catalog="" type="TABLE">
+      <column name="sampleset_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="sample_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <foreign-key name="#FAKE_sample_sets__samples_1" columns="sample_id" ref-table="samples" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_sample_sets__samples_2" columns="sampleset_id" ref-table="sample_sets" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="samples" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="project_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="location_id" sqlType="INTEGER" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="natural" sqlType="BOOLEAN" length="2000000000" precision="10" nullable="true" jdbcType="4"/>
+      <column name="diameter" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="height" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="mass" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="prep_date" sqlType="DATETIME" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="date_added" sqlType="DATETIME" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_samples_1" columns="location_id" ref-table="locations" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_samples_2" columns="project_id" ref-table="projects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="#FAKE_measurements_2" table="measurements" schema="" catalog="" columns="sample_id"/>
+      <exported-key name="#FAKE_sample_sets__samples_1" table="sample_sets__samples" schema="" catalog="" columns="sample_id"/>
+    </table>
+    <table name="treatment_defs" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="reference" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defA" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defB" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defC" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defD" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defE" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defF" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defG" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defH" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defI" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defJ" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defK" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defL" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="defM" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="date_added" sqlType="DATE" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+    </table>
+    <table name="treatments" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" length="2000000000" precision="10" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="reference" sqlType="VARCHAR" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <column name="valA" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valB" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valC" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valD" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valE" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valF" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valG" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valH" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valI" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valJ" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valK" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valL" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="valM" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6"/>
+      <column name="date_added" sqlType="DATE" length="2000000000" precision="10" nullable="true" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <exported-key name="#FAKE_measurements_3" table="measurements" schema="" catalog="" columns="treatment_id"/>
+    </table>
+  </data-source>
+</component>
