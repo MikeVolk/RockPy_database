@@ -1,0 +1,8 @@
+sweep field lin[0, 1.5, 1]
+    measure FALSE
+sweep field lin[1.5, -1.5, 100]
+    measure TRUE
+sweep field lin[-1.5, 1.5, 100]
+    measure TRUE
+sweep field lin[1.5, 0, 1]
+    measure FALSE
