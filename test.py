@@ -29,8 +29,8 @@ if __name__ == '__main__':
     P3 = Project(name='Boston Boston')
     U1.projects.append(P3)
 
-    for p in U1.projects:
-        print(p.name, p.users)
+    # for p in U1.projects:
+    #     print(p.name, p.users)
 
     session.add_all([U1, U2, P1, P2, P3])
 
@@ -71,10 +71,13 @@ if __name__ == '__main__':
     Loc1.samples.append(s1)
 
     # print(Loc1.project)
-    print(U1.__dict__)
-    print(U1.expeditions)
+    # print(U1.__dict__)
+    # print(U1.expeditions)
 
     session.add_all([Exp1, Exp2, Exp3, Loc1,Loc2,Loc3,Loc4,Loc5])
 
     session.commit()
     session.flush()
+
+    q = session.query(User)
+    print(q)
