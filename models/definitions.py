@@ -1,23 +1,13 @@
-from sqlalchemy import Column, Integer, Text, String, Float, Date
-from sqlalchemy import create_engine, ForeignKey
-from sqlalchemy import Column, Integer, Table
-from sqlalchemy.ext.declarative import declarative_base
+import logging
 
 from models import bridges
 from models import db_init
 
-import logging
-
 from sqlalchemy import Table, Column, ForeignKey, Integer, String, Float, Boolean
 
-from sqlalchemy import exc
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import relationship, backref
-from sqlalchemy import create_engine
-from sqlalchemy import Sequence
 
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
 
 class User(db_init.Base):
     __tablename__ = 'user'
@@ -46,8 +36,6 @@ class Project(db_init.Base):
                                secondary=bridges.project_expedition_bridge,
                                backref="projects")
 
-
-
     def __repr__(self):
         return "<< %s >>" % (self.name)
 
@@ -63,6 +51,7 @@ class Expedition(db_init.Base):
                              backref="expedition")
 
     users = association_proxy('user', 'project')
+
 
 class Location(db_init.Base):
     __tablename__ = 'location'
@@ -90,7 +79,6 @@ class Sample(db_init.Base):
     # sample / specimen
     specimens = relationship("Specimen", back_populates="sample")
 
-
     projects = relationship("Project",
                             secondary=bridges.project_sample_bridge,
                             backref="samples")
@@ -117,65 +105,100 @@ class Specimen(db_init.Base):
 
 
 class Data(db_init.Base):
-
     __tablename__ = 'data'
     id = Column(Integer, primary_key=True)
-    x = Column(Float, nullable=False)
-    y = Column(Float, nullable=False)
+    value = Column(Float, nullable=False)
 
-    dtype_id = Column(Integer, ForeignKey('dtype.id'))
+    quantity_id = Column(Integer, ForeignKey('quantity.id'))
     specimen_id = Column(Integer, ForeignKey('specimen.id'))
     location_id = Column(Integer, ForeignKey('location.id'))
-    measurement_id = Column(Integer, ForeignKey('measurement.id'))
-    protocol_id = Column(Integer, ForeignKey('protocol.id'))
     machine_id = Column(Integer, ForeignKey('machine.id'))
-    treatment_id = Column(Integer, ForeignKey('treatment.id'))
     atmosphere_id = Column(Integer, ForeignKey('atmosphere.id'))
 
-
-class Dtype(db_init.Base):
-    __tablename__ = 'dtype'
-    id = Column(Integer, primary_key=True)
-
-class Protocol(db_init.Base):
-    __tablename__ = 'protocol'
-    id = Column(Integer, primary_key=True)
-
-class Sequence(db_init.Base):
-    __tablename__ = 'sequence'
-    id = Column(Integer, primary_key=True)
-    treatment_id = Column(Integer, ForeignKey('treatment.id'))
-
+    protocol_id = Column(Integer, ForeignKey('protocol.id'))
+    measurement_id = Column(Integer, ForeignKey('measurement.id'))
+    measurement = relationship("Measurement", back_populates="data")
 
 class Machine(db_init.Base):
     __tablename__ = 'machine'
     id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    location = Column(Integer, ForeignKey('location.id'))
 
-class Treatment(db_init.Base):
-    __tablename__ = 'treatment'
-    id = Column(Integer, primary_key=True)
 
 class Atmosphere(db_init.Base):
     __tablename__ = 'atmosphere'
     id = Column(Integer, primary_key=True)
 
 
-class SI_unit(db_init.Base):
-    __tablename__ = 'si_unit'
-    id = Column(Integer, primary_key=True)
-    quantity = relationship("quantity", back_populates="su_unit")
+### measurement history
 
-class non_si_unit(db_init.Base):
-    __tablename__ = 'non_si_unit'
+class Protocol(db_init.Base):
+    __tablename__ = 'protocol'
     id = Column(Integer, primary_key=True)
-    conversion_to_si = Column(Float, primary_key=True)
-    quantity = relationship("quantity", back_populates="su_unit")
-    si_unit = relationship("si_unit", back_populates="non_su_units")
+
+
+class Sequence(db_init.Base):
+    __tablename__ = 'sequence'
+    id = Column(Integer, primary_key=True)
+    instruction_id = Column(Integer, ForeignKey('instruction.id'))
+    protocol_id = Column(Integer, ForeignKey('protocol.id'))
+    Quantity_id = Column(Integer, ForeignKey('quantity.id'))
+
+    Start = Column(Float, nullable=True)
+    Stop = Column(Float, nullable=True)
+    N = Column(Integer, nullable=True)
+    Rate = Column(Float, nullable=True)
+    measurements = relationship("Measurement", back_populates="sequence")
+    label = Column(String, nullable=True)
+
+    # treatment_id = Column(Integer, ForeignKey('treatment.id'))
+
+
+class Instruction(db_init.Base):
+    __tablename__ = 'instruction'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    type = Column(String, nullable=False)
 
 
 class Quantity(db_init.Base):
     __tablename__ = 'quantity'
     id = Column(Integer, primary_key=True)
+    si_unit = relationship("SI_unit", back_populates="quantity")
+    non_si_units = relationship("non_SI_unit", back_populates="quantity")
+
+
+class SI_unit(db_init.Base):
+    __tablename__ = 'si_unit'
+    id = Column(Integer, primary_key=True)
+
+    quantity_id = Column(Integer, ForeignKey('quantity.id'))
+    quantity = relationship("Quantity", back_populates="si_unit", foreign_keys=[quantity_id])
+    non_si_units = relationship("non_SI_unit", back_populates="si_unit")
+
+
+class non_SI_unit(db_init.Base):
+    __tablename__ = 'non_si_unit'
+    id = Column(Integer, primary_key=True)
+
+    conversion_to_si = Column(Float, nullable=False)
+    offset_to_si = Column(Float, nullable=False)
+
+    quantity_id = Column(Integer, ForeignKey('quantity.id'))
+    quantity = relationship("Quantity", back_populates="non_si_units")
+
+    si_unit_id = Column(Integer, ForeignKey('si_unit.id'))
+    si_unit = relationship("SI_unit", back_populates="non_si_units")
+
+
+
+class Measurement(db_init.Base):
+    __tablename__ = 'measurement'
+    id = Column(Integer, primary_key=True)
+    sequence_id = Column(Integer, ForeignKey('sequence.id'))
+    sequence = relationship("Sequence", back_populates="measurements")
+    data = relationship('Data', back_populates="measurement")
 
 
 db_init.Base.metadata.create_all(db_init.engine)
