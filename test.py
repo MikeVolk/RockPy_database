@@ -79,5 +79,5 @@ if __name__ == '__main__':
     session.commit()
     session.flush()
 
-    q = session.query(User)
-    print(q)
+    q = session.query(User).filter(User.name == 'Hasimir').all()
+    print([i.projects for i in q])
