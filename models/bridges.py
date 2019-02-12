@@ -26,3 +26,8 @@ expedition_location_bridge = Table('expedition_location_bridge', Base.metadata,
     Column('expedition_id', Integer, ForeignKey('expedition.id')),
     Column('location_id', Integer, ForeignKey('location.id'))
 )
+
+# experiment_protocol_bridge = Table('experiment_protocol_bridge', Base.metadata,
+#     Column('experiment_id', Integer, ForeignKey('experiment.id')),
+#     Column('protocol_id', Integer, ForeignKey('protocol.id'))
+# )
