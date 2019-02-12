@@ -108,6 +108,7 @@ class Data(db_init.Base):
     __tablename__ = 'data'
     id = Column(Integer, primary_key=True)
     value = Column(Float, nullable=False)
+    timestamp = Column(Float, nullable=True)
 
     quantity_id = Column(Integer, ForeignKey('quantity.id'))
     specimen_id = Column(Integer, ForeignKey('specimen.id'))
