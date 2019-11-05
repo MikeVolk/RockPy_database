@@ -1,7 +1,8 @@
 import models
 from sqlalchemy.orm import sessionmaker
-from models.db_init import engine, Base
+from models import engine, Base
 from models.definitions import  *
+from models.db_init import declare_core
 
 import os
 
@@ -9,6 +10,8 @@ if __name__ == '__main__':
     os.remove("/Users/mike/Documents/GitHub/RockPy_database/RockPy.db")
 
     Base.metadata.create_all(engine)
+    declare_core()
+
     Session = sessionmaker(bind=engine)
     session = Session()
 
@@ -79,5 +82,15 @@ if __name__ == '__main__':
     session.commit()
     session.flush()
 
-    q = session.query(User).filter(User.name == 'Hasimir').all()
-    print([i.projects for i in q])
+    # q = session.query(User).filter(User.name == 'Hasimir').all()
+    mass = session.query(Quantity).filter(Quantity.name == 'mass').all()[0]
+
+    d = Data(value=1273.12312, quantity_id=mass.id)
+    session.add(d)
+    session.commit()
+    session.flush()
+
+    print(d.quantity, d.quantity_id)
+    print(d.quantity.si_unit)
+    print(d.convert_to('mg'))
+    # print(q.convert_to('mg'))

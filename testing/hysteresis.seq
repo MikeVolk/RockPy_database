@@ -1,8 +1,12 @@
-sweep field lin[0, 1.5, 1]
+# This is a comment
+# I hope that this can be done excluded, easily
+
+sweep magnetic_field lst[0, 0.1,0.2,0.3,0.4,0.5,0.6,0.7] @0.1 #label
     measure FALSE
-sweep field lin[1.5, -1.5, 100]
+sweep field lin[1.5, -1.5, 100] @-0.2e-5 #this is  a long label
     measure TRUE
 sweep field lin[-1.5, 1.5, 100]
     measure TRUE
-sweep field lin[1.5, 0, 1]
-    measure FALSE
+sweep field lin[0, 0.1,0.2,0.3,0.4,0.5,0.6,0.7]
+	sweep temperature log[300,10,10]
+		measure FALSE

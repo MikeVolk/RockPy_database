@@ -1,4 +1,7 @@
 from copy import deepcopy
+from pprint import pprint
+import re
+
 seq_entry = {'instruction':None,
              'quantity':None,
              'lstgen':None,
@@ -13,60 +16,88 @@ def read_seq_file(seq):
     with open(seq) as f:
         return f.readlines()
 
-def prepare_seq_list(seq):
+def translate_lst2lin(steplist):
+    pass
 
-    steps = {}
-    #remove \n
-    seq = [i.rstrip() for i in seq]
+def prepare_steplist(raw_steplist):
+    """
+    Prepares the sequence file to be read by the database.
+    Does not read comment lines (#) or blank lines.
+    Will check for basic consistency of the file (i.e. all values are given)
 
-    for i, line in enumerate(seq):
+    Parameters
+    ----------
+    raw_steplist: list of sequence lines, read by `read_seq_file`
 
-        steps[i] = deepcopy(seq_entry)
+    Returns
+    -------
+    list
+        List of strings,
+
+    Raises
+    ------
+    ValueError if there is a problem with reading the list. #todo make better checks
+    """
+    steplist = []
+
+    #remove \n, comments and empty lines
+    steplist_stripped = [(i+1, v.rstrip()) for i, v in enumerate(raw_steplist) if v.strip() != '' if not v.startswith('#') ]
+
+    reOptFloat = r'([+-]?[0-9]*\.?[0-9]*?[eE]?[+-]?[0-9]+?)'
+
+    try:
+        for n, (i, line) in enumerate(steplist_stripped):
+
+            line = line.rstrip()
+            remove_indent = re.split(r'\s{4}|\t{1}?', line)
+            indents = remove_indent.count('')
+            rest = remove_indent[-1]
+
+            try:
+                valrange = re.split('[\[\]]', rest)[1]
+                valrange = re.findall(reOptFloat, valrange)
+            except IndexError:
+                valrange = None
 
 
-        # print(i, line)
-        # split for 4 spaces
-        if line.startswith('    '):
-            indent = line.split('    ')
-        elif line.startswith('\t'):
-            indent = line.split('\t')
-        else:
-            indent = [line]
+            instruction, quantity = re.findall(r'(\w+)\b', rest)[:2]
+            lstgen = re.findall(r'\s(\w+)\[', rest)
+            rate = re.search(r'\@('+reOptFloat+')', rest)
+            if rate:
+                rate = rate.group()
+            label = re.search(r'\#[\w\s]+', rest)
 
-        steps[i]['indent'] = len(indent)-1
+            if label:
+                label = label.group()
 
-        #removed indentation (4 spaces)
-        line = indent[steps[i]['indent']]
-        instruction = line.split(' ')[0]
-        steps[i]['instruction'] = instruction
+            steplist.append([n, instruction, quantity, lstgen, valrange, rate, label, indents])
 
-        quantity = line.split(' ')[1]
-        steps[i]['quantity'] = quantity
-        # rest = line.split(' ')[2:]
+    except ValueError:
+        raise ValueError('Error found in line %i\n\t [%i] >>> %s \nplease check the file'%(i, i, line))
+    return steplist
 
-        if instruction == 'measure':
-            continue
+def convert_steplist(steplist):
+    """
 
-        lstgen = line.split(' ')[2].split('[')[0]
-        steps[i]['lstgen'] = lstgen
+    Parameters
+    ----------
+    steplist
 
-        start, stop, n = line.split('[')[1].split(']')[0].split(',')
-        steps[i]['start'] = float(start)
-        steps[i]['stop'] = float(stop)
-        steps[i]['n'] = int(n)
+    Returns
+    -------
 
-        # get rate of change and label
-        if len(line.split(']'))>1:
-            if line.split(']')[1]:
-                rate = line.split(']')[1]
-                rate[i]['stop'] = float(rate)
+    """
+    return steplist
 
-            if '#' in line:
-                label = line.split('#')[1]
+def import_seq(seq_file):
+    raw_steplist = read_seq_file(seq_file)
+    steplist = prepare_steplist(raw_steplist)
 
-    return steps
+    steplist = convert_steplist(steplist)
 
 if __name__ == '__main__':
-    file = read_seq_file('/Users/mike/Documents/GitHub/RockPy_database/testing/hysteresis.seq')
-    for k in prepare_seq_list(file):
-        print(k, prepare_seq_list(file)[k])
+
+    d =  import_seq('/Users/mike/Documents/GitHub/RockPy_database/testing/hysteresis.seq')
+    # for k in d:
+    #     print(k, d[k])
+    pprint(d)
